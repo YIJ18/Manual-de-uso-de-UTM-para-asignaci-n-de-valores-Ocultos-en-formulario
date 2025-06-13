@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+  <title>Formulario con UTM</title>
+</head>
+
+<body>
+  <div class="container mt-5">
+    <h1 class="mb-4">Asignación de valores ocultos con UTM</h1>
+
+    <!-- Texto de prueba para mostrar el valor detectado -->
+    <p><strong>Origen detectado:</strong> <span id="origenTexto" class="text-primary"></span></p>
+
+    <form>
+      <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre:</label>
+        <input type="text" class="form-control" id="nombre" name="nombre" required>
+      </div>
+
+      <!-- Campo oculto para el valor de UTM -->
+      <input type="hidden" name="utm_origen" id="utm_origen">
+
+      <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+  </div>
+
+  <!-- Script para capturar el UTM y mostrarlo -->
+  <script>
+    function getUTMParam(param) {
+      const params = new URLSearchParams(window.location.search);
+      return params.get(param);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const utmOrigen = getUTMParam("utm_origen");
+      if (utmOrigen) {
+        // Asignar valor al input oculto
+        document.getElementById("utm_origen").value = utmOrigen;
+        // Mostrar en pantalla
+        document.getElementById("origenTexto").textContent = utmOrigen;
+      } else {
+        document.getElementById("origenTexto").textContent = "No detectado";
+      }
+    });
+  </script>
+
+  <!-- Bootstrap Bundle JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+</body>
+
+</html>
